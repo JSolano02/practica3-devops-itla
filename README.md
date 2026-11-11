@@ -48,6 +48,71 @@ docker run -p 3000:3000 tareas-devops
 - Provocar a propósito una prueba fallida, mostrar que el pipeline se pone en **rojo**, corregirla y mostrarlo en **verde**.
 - Completar este README con la explicación de cada etapa del pipeline.
 
+## Documentación del pipeline CI/CD — Práctica 3
+
+### Objetivo
+Automatizar la validación, las pruebas y el despliegue de una aplicación Node.js/Express mediante GitHub Actions.
+
+### Etapas del pipeline
+
+**1. Activación automática**
+
+El pipeline se ejecuta con cada push o pull request dirigido a la rama main.
+
+**2. Preparación del entorno**
+
+GitHub Actions utiliza Ubuntu, descarga el repositorio y configura Node.js 20.
+
+**3. Instalación de dependencias**
+
+Se ejecuta `npm install` para instalar las librerías necesarias.
+
+**4. Revisión estática**
+
+Se ejecuta `npm run lint`, que comprueba la sintaxis de los archivos JavaScript mediante `node --check`.
+
+**5. Pruebas automatizadas**
+
+Se ejecuta `npm test` utilizando Jest y Supertest. El proyecto cuenta con 8 pruebas automatizadas y genera un informe de cobertura.
+
+**6. Construcción de Docker**
+
+Se construye una imagen Docker para verificar que la aplicación puede empaquetarse correctamente.
+
+**7. Despliegue a GitHub Pages**
+
+Cuando las etapas anteriores son exitosas y el evento es un push a main, se publica el contenido estático de la carpeta public.
+
+### Demostración del funcionamiento
+
+Se realizaron tres ejecuciones para comprobar el pipeline:
+
+- Primera ejecución: pipeline exitoso.
+- Segunda ejecución: fallo intencional de una prueba, detectado por GitHub Actions. El despliegue fue omitido.
+- Tercera ejecución: prueba corregida y pipeline exitoso nuevamente.
+
+### Resultados finales
+
+- 8 pruebas automatizadas aprobadas.
+- 100% de cobertura de líneas.
+- 100% de cobertura de funciones.
+- 95.65% de cobertura de sentencias.
+- 85.71% de cobertura de ramas.
+- Despliegue exitoso a GitHub Pages.
+
+### Enlaces
+
+Repositorio:
+https://github.com/JSolano02/practica3-devops-itla
+
+Aplicación publicada:
+https://jsolano02.github.io/practica3-devops-itla/
+
+Historial del pipeline:
+https://github.com/JSolano02/practica3-devops-itla/actions
+
+**Nota:** GitHub Pages aloja el frontend estático; el servidor Express y sus endpoints API se ejecutan localmente.
+
 ## Proyecto Final — cómo extenderla
 - Persistencia con **SQLite** (o MongoDB) en lugar del arreglo en memoria.
 - Publicar la imagen en **GitHub Container Registry** (`ghcr.io`) desde el pipeline.
